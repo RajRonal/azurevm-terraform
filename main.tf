@@ -210,7 +210,7 @@ resource "azurerm_linux_virtual_machine" "linuxvm" {
   }
 
   tags = {
-    environment = "dev"
+    environment = "Production"
     
   }
   
@@ -230,7 +230,7 @@ resource "azurerm_linux_virtual_machine" "linuxvm" {
      user = "azureuser"
      private_key = tls_private_key.example_ssh.private_key_openssh
     // host = azurerm_public_ip.public_ip.ip_address
-     host=data.azurerm_public_ip.myterraformpublicip.ip_address
+     host="${data.azurerm_public_ip.myterraformpublicip.ip_address}"
    }
 #    provisioner "remote-exec" {
 #     when = destroy
