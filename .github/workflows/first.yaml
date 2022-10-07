@@ -30,6 +30,15 @@ jobs:
 
       - name: Print Created NSG Rule Name
         run: echo "Rule Name ${{ steps.rule.outputs.rule_name }}"
+        
+      - name: SSH deploy
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.HOST_DNS }}
+            username:  ${{ secrets.USERNAME }}
+            key:  ${{ secrets.VM_SSH_KEY }}
+            port:  ${{ secrets.PORT }}
+            script: echo hello world
 
       - name: Remove NSG Rule
         uses: venura9/manage-nsg@master
