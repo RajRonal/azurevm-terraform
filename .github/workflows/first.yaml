@@ -19,7 +19,5 @@ jobs:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
           rule-nsg-resource-group-name: myresource
           rule-nsg-name: SShazure
-          rule-priority-start: "100"
-          rule-priority-range: "*"
           rule-inbound-port: "22"
           
