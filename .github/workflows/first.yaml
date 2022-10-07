@@ -12,18 +12,30 @@ jobs:
       - name: 🔎 Check IP
         run: curl https://api.ipify.org
         
+  nsg-rule:
+    runs-on: ubuntu-latest
+    name: adding nsg rule
+    steps:
+    
       - name: dig +short myip.opendns.com @resolver1.opendns.com
         run: dig +short myip.opendns.com @resolver1.opendns.com
-  
+
       - name: Add NSG Rule
         uses: venura9/manage-nsg@master
         id: rule
         with:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
           rule-nsg-resource-group-name: myresource
-          rule-nsg-name: sshazure
-          rule-inbound-port: "22"
-      
+          rule-nsg-name: ManageNsg
+
       - name: Print Created NSG Rule Name
         run: echo "Rule Name ${{ steps.rule.outputs.rule_name }}"
+
+      - name: Remove NSG Rule
+        uses: venura9/manage-nsg@master
+        with:
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          rule-id-for-removal: ${{ steps.rule.outputs.rule_name }}
+          rule-nsg-resource-group-name: myresource
+          rule-nsg-name: ManageNsg
           
