@@ -3,8 +3,9 @@ on:
   push:
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-latest
+    name: Deploying to Azure
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v2
